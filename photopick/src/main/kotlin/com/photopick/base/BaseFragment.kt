@@ -1,12 +1,17 @@
 package com.photopick.base
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -29,11 +34,13 @@ abstract class BaseFragment : Fragment() {
         R.anim.slide_still, R.anim.scale_exit)
     var mBaseView: View? = null
 
+    @RequiresApi(VERSION_CODES.JELLY_BEAN)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = onCreateView()
         view.fitsSystemWindows = true
         mBaseView = view
+        requestApplyInsets(getFragmentActivity().window)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -50,8 +57,17 @@ abstract class BaseFragment : Fragment() {
         mBaseView=null
     }
 
+    @SuppressLint("NewApi")
+    fun requestApplyInsets(window: Window) {
+        if (Build.VERSION.SDK_INT in 19..20) {
+            window.decorView.requestFitSystemWindows()
+        } else if (Build.VERSION.SDK_INT >= 21) {
+            window.decorView.requestApplyInsets()
+        }
+    }
+
     /**
-     *
+     * getActivity()
      */
     open fun getFragmentActivity(): FragmentActivity {
         return activity as FragmentActivity
