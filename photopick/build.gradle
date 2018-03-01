@@ -6,6 +6,7 @@ apply plugin: 'kotlin-kapt'  //kapt3插件
 android {
     compileSdkVersion 26
 
+    resourcePrefix "PhotoPick"
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26

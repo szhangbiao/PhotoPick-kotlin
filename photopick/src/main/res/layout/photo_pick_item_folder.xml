@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/photo_pick_white"
+    >
+    
+    <com.photopick.widget.CustomImageView
+        android:id="@+id/iv_folder_image"
+        android:layout_width="@dimen/photo_pick_dp_50"
+        android:layout_height="@dimen/photo_pick_dp_50"
+        android:layout_margin="@dimen/photo_pick_dp_12"
+        android:contentDescription="@null"
+        android:src="@drawable/photo_pick_album_default"
+        />
+    
+    <TextView
+        android:id="@+id/tv_folder_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/iv_folder_image"
+        android:hint="@string/photo_pick_folder_name"
+        android:textColor="@color/photo_pick_black_333333"
+        android:textColorHint="@color/photo_pick_black_333333"
+        android:textSize="15sp"
+        tools:ignore="RelativeOverlap"
+        />
+    
+    <TextView
+        android:id="@+id/tv_folder_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_folder_name"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/iv_folder_image"
+        android:layout_toRightOf="@+id/iv_folder_image"
+        android:hint="@string/photo_pick_photo_num"
+        android:textColor="@color/photo_pick_gary_666666"
+        android:textColorHint="@color/photo_pick_gary_666666"
+        android:textSize="14sp"
+        />
+    
+    <ImageView
+        android:id="@+id/iv_folder_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/photo_pick_dp_12"
+        android:contentDescription="@null"
+        android:src="@drawable/photo_pick_folder_selected"
+        />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/photo_pick_dp_1"
+        android:layout_below="@+id/iv_folder_image"
+        android:background="@color/photo_pick_separation"
+        />
+
+</RelativeLayout>

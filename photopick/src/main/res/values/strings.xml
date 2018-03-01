@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">PhotoPick</string>
+    <string name="photo_pick_name">PhotoPick</string>
+    <string name="photo_pick_folder_name">文件夹名</string>
+    <string name="photo_pick_photo_num">%d 张</string>
 </resources>

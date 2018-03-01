@@ -3,7 +3,7 @@
     android:background="@android:color/transparent">
 
     <scale
-        android:duration="@integer/qmui_anim_duration"
+        android:duration="@integer/photo_pick_anim_duration"
         android:fromXScale="0.9"
         android:fromYScale="0.9"
         android:interpolator="@android:interpolator/decelerate_cubic"
@@ -13,7 +13,7 @@
         android:toYScale="1.0" />
 
     <alpha
-        android:duration="@integer/qmui_anim_duration"
+        android:duration="@integer/photo_pick_anim_duration"
         android:fromAlpha="0.0"
         android:interpolator="@android:interpolator/decelerate_cubic"
         android:toAlpha="1.0" />

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="qmui_anim_duration">300</integer>
+    <integer name="photo_pick_anim_duration">300</integer>
+    <dimen name="photo_pick_dp_1">1dp</dimen>
+    <dimen name="photo_pick_dp_12">12dp</dimen>
+    <dimen name="photo_pick_dp_50">50dp</dimen>
 </resources>

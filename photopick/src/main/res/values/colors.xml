@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="photo_pick_white">#FFFFFFFF</color>
+    <!--分隔线-->
+    <color name="photo_pick_separation">#FFBBBBBB</color>
+    <color name="photo_pick_black_333333">#FF333333</color>
+    <color name="photo_pick_gary_666666">#FF666666</color>
+    <color name="photo_pick_gery_999999">#FF999999</color>
+</resources>
