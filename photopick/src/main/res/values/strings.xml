@@ -2,4 +2,12 @@
     <string name="photo_pick_name">PhotoPick</string>
     <string name="photo_pick_folder_name">文件夹名</string>
     <string name="photo_pick_photo_num">%d 张</string>
+    <string name="photo_pick_take_picture">拍摄</string>
+    
+    <string name="photo_pick_camera_roll">相机胶卷</string>
+    <string name="photo_pick_cancel">取消</string>
+    
+    <string name="photo_pick_preview">预览</string>
+    <string name="photo_pick_empty">你可以使用相机拍摄照片</string>
+    <string name="photo_pick_please_select">请选择</string>
 </resources>

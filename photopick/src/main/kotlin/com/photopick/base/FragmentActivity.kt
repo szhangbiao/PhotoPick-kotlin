@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.photopick.utils.StatusBarUtil
+import com.zhangbiao.photopick.R
 import java.util.ArrayList
 
 /**
@@ -20,7 +22,8 @@ abstract class FragmentActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        StatusBarUtil.transparencyBar(this)
+        StatusBarUtil.setStatusBarColor(this, R.color.color_black_6)
         mFragmentContainer=FrameLayout(this)
         mFragmentContainer?.id=getContextViewId()
         setContentView(mFragmentContainer)

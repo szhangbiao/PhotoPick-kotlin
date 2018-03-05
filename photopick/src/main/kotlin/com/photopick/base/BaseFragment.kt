@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.support.annotation.IdRes
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
@@ -38,6 +39,7 @@ abstract class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = onCreateView()
+        initWidgets(view)
         view.fitsSystemWindows = true
         mBaseView = view
         requestApplyInsets(getFragmentActivity().window)
@@ -144,8 +146,20 @@ abstract class BaseFragment : Fragment() {
         return SLIDE_TRANSITION_CONFIG
     }
 
+    /**
+     * initWidgets
+     */
+    abstract fun initWidgets(view: View)
+    /**
+     * onCreateView
+     */
     abstract fun onCreateView(): View
 
+
+    //BaseFragment
+    protected fun <T : View> findView(layoutView: View, @IdRes resId: Int): T {
+        return layoutView.findViewById<View>(resId) as T
+    }
     /**
      * 显示键盘
      */

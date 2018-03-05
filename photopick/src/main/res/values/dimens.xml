@@ -2,6 +2,24 @@
 <resources>
     <integer name="photo_pick_anim_duration">300</integer>
     <dimen name="photo_pick_dp_1">1dp</dimen>
+    <dimen name="photo_pick_dp_2">2dp</dimen>
+    <dimen name="photo_pick_dp_3">3dp</dimen>
+    <dimen name="photo_pick_dp_5">5dp</dimen>
+    <dimen name="photo_pick_dp_6">6dp</dimen>
+    <dimen name="photo_pick_dp_8">8dp</dimen>
+    <dimen name="photo_pick_dp_10">10dp</dimen>
     <dimen name="photo_pick_dp_12">12dp</dimen>
+    <dimen name="photo_pick_dp_14">14dp</dimen>
+    <dimen name="photo_pick_dp_15">15dp</dimen>
+    <dimen name="photo_pick_dp_48">48dp</dimen>
     <dimen name="photo_pick_dp_50">50dp</dimen>
+    
+    
+    <dimen name="photo_pick_sp_12">12sp</dimen>
+    <dimen name="photo_pick_sp_13">13sp</dimen>
+    <dimen name="photo_pick_sp_14">14sp</dimen>
+    <dimen name="photo_pick_sp_15">15sp</dimen>
+    <dimen name="photo_pick_sp_16">16sp</dimen>
+    <dimen name="photo_pick_sp_17">17sp</dimen>
+    <dimen name="photo_pick_sp_18">18sp</dimen>
 </resources>

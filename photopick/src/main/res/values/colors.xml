@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="photo_pick_white">#FFFFFFFF</color>
+    <color name="photo_pick_green">#4CAF50</color>
+    
+    <color name="color_white_1">#FAFAFA</color>
+    <color name="color_white_2">#F0FFFFFF</color>
+    <color name="color_white_3">#EEEEEE</color>
+    
+    <color name="color_black_4">#80000000</color>
+    <color name="color_black_5">#20000000</color>
+    <color name="color_black_6">#323236</color> <!-- Black -->
+    <color name="color_transparent_white">#4DFFFFFF</color>
+    
+    <color name="color_gray_1">#9b9b9b</color>
     <!--分隔线-->
     <color name="photo_pick_separation">#FFBBBBBB</color>
     <color name="photo_pick_black_333333">#FF333333</color>

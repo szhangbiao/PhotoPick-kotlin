@@ -6,7 +6,6 @@ apply plugin: 'kotlin-kapt'  //kapt3插件
 android {
     compileSdkVersion 26
 
-    resourcePrefix "PhotoPick"
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
@@ -35,5 +34,7 @@ dependencies {
 
     api 'com.android.support:appcompat-v7:26.1.0'
     api 'com.android.support:recyclerview-v7:26.1.0'
+    //4.4沉浸式状态栏库
+    api 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     api"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

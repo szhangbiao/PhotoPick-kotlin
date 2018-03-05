@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/photo_pick_white"
+    >
+    
+    <include
+        android:id="@+id/id_titleBar"
+        layout="@layout/include_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_photo_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/id_titleBar"
+        />
+    
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/photo_pick_dp_50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_black_6"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:id="@+id/tv_photo_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:enabled="false"
+            android:gravity="start|center"
+            android:padding="12dp"
+            android:text="@string/photo_pick_preview"
+            android:textColor="@color/photo_pick_green"
+            android:textSize="@dimen/photo_pick_sp_14"
+            />
+        
+        <LinearLayout
+            android:id="@+id/ll_photo_complete"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/photo_pick_dp_8"
+            android:background="@drawable/photo_pick_shape_complete"
+            android:enabled="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/photo_pick_dp_6"
+            >
+            
+            <TextView
+                android:id="@+id/tv_photo_complete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/photo_pick_please_select"
+                android:textColor="@color/photo_pick_white"
+                android:textSize="@dimen/photo_pick_sp_14"
+                />
+            
+            <TextView
+                android:id="@+id/tv_photo_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/photo_pick_white"
+                android:textSize="@dimen/photo_pick_sp_14"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/tv_photo_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/photo_pick_dp_15"
+        android:layout_marginRight="@dimen/photo_pick_dp_15"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/photo_pick_dp_3"
+        android:text="@string/photo_pick_empty"
+        android:textColor="@color/color_gray_1"
+        android:textSize="@dimen/photo_pick_sp_18"
+        android:visibility="invisible"
+        />
+</RelativeLayout>
