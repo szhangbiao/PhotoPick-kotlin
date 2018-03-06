@@ -1,6 +1,12 @@
 package com.photopick.sample
 
 import android.app.Activity
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.photopick.base.BaseRAdapter
 import com.photopick.base.RViewHolder
 import com.photopick.bean.PhotoBean
@@ -15,13 +21,43 @@ class ImageAdapter(private val mActivity: Activity) : BaseRAdapter<PhotoBean>(mA
     private var mOnAddMediaListener: OnAddMediaListener? = null
 
     override fun getItemLayoutId(viewType: Int): Int {
-        TODO(
-            "not implemented") //To change body of created functions use File | Settings | File Templates.
+        return R.layout.item_sample_adapter
+    }
+
+    override fun onBindViewHolder(holder: RViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            TYPE_ADD -> {
+                holder.getImageView(R.id.ivPicture).setImageResource(R.drawable.ic_add_media)
+                holder.getImageView(R.id.ivPicture).setOnClickListener({
+                    mOnAddMediaListener?.onaddMedia()
+                })
+                holder.getView(R.id.llDelete).visibility = View.INVISIBLE
+            }
+            else -> {
+                bindData(holder, position, mList[position])
+            }
+        }
     }
 
     override fun bindData(holder: RViewHolder, position: Int, item: PhotoBean) {
-        TODO(
-            "not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.getView(R.id.llDelete).visibility = View.VISIBLE
+        holder.getView(R.id.llDelete).setOnClickListener({
+            val index = holder.adapterPosition
+            if (index != RecyclerView.NO_POSITION) {
+                mList.removeAt(index)
+                notifyItemRemoved(index)
+                notifyItemRangeChanged(index, mList.size)
+            }
+        })
+        val path = item.photoPath
+        val options = RequestOptions()
+            .centerCrop()
+            .placeholder(R.color.color_f6)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+        Glide.with(holder.itemView.context)
+            .load(path)
+            .apply(options)
+            .into(holder.getImageView(R.id.ivPicture))
     }
 
     override fun getItemCount(): Int {
