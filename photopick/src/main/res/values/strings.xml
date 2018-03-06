@@ -4,7 +4,7 @@
     <string name="photo_pick_photo_num">%d 张</string>
     <string name="photo_pick_take_picture">拍摄</string>
     
-    <string name="photo_pick_camera_roll">相机胶卷</string>
+    <string name="photo_pick_camera_roll">所有图片</string>
     <string name="photo_pick_cancel">取消</string>
     
     <string name="photo_pick_preview">预览</string>

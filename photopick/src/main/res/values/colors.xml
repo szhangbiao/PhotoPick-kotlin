@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="photo_pick_transparent_black">#4D000000</color>
     <color name="photo_pick_white">#FFFFFFFF</color>
     <color name="photo_pick_green">#4CAF50</color>
     
@@ -7,6 +8,7 @@
     <color name="color_white_2">#F0FFFFFF</color>
     <color name="color_white_3">#EEEEEE</color>
     
+    <color name="transparent">#00000000</color>
     <color name="color_black_4">#80000000</color>
     <color name="color_black_5">#20000000</color>
     <color name="color_black_6">#323236</color> <!-- Black -->

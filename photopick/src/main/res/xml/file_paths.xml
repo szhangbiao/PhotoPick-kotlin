@@ -3,6 +3,7 @@
     <paths>
         <root-path
             name="camera_photos"
-            path="" />
+            path="Pick_Camera"
+            />
     </paths>
 </resources>

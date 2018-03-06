@@ -44,29 +44,16 @@ class FolderAdapter(private val mActivity: Activity,
 
     private fun getTotalImageSize(): Int {
         var count = 0
-        mList.forEach { count += it.photoList!!.size }
+        mList.forEach { count += it.photoList.size }
         return count
     }
 
     override fun bindData(holder: RViewHolder, position: Int, item: FolderBean) {
         holder.getTextView(R.id.tv_folder_name).text = item.folderName
-        holder.getTextView(R.id.tv_folder_count).text = "${item.photoList?.size} 张"
+        holder.getTextView(R.id.tv_folder_count).text = "${item.photoList.size} 张"
         holder.getImageView(
             R.id.iv_folder_indicator).visibility = if (mSelector == position) View.VISIBLE else View.GONE
-        PhotoPick.config().getImageLoader()?.displayImage(mActivity, item.folderPath,
+        PhotoPick.config().getImageLoader()?.displayImage(mActivity, item.firstImagePath,
             holder.findViewById(R.id.iv_folder_image), 50, 50)
     }
-
-//    inner class ViewHolder(itemView: View) : RViewHolder(itemView) {
-//        private var ivFolderImage:CustomImageView?=null
-//        private var tvFolderName:TextView?=null
-//        private var tvImageCount:TextView?=null
-//        private var tvIndicatort:ImageView?=null
-//        init {
-//            ivFolderImage=findViewById(R.id.iv_folder_image)
-//            tvFolderName=findViewById(R.id.tv_folder_name)
-//            tvImageCount=findViewById(R.id.tv_folder_count)
-//            tvIndicatort=findViewById(R.id.iv_folder_indicator)
-//        }
-//    }
 }
