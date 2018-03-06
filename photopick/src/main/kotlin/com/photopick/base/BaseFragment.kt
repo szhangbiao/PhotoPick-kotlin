@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethod
 import android.view.inputmethod.InputMethodManager
 import com.photopick.config.TransitionConfig
+import com.photopick.widget.LoadingDialog
 import com.zhangbiao.photopick.R
 
 /**
@@ -34,6 +35,8 @@ abstract class BaseFragment : Fragment() {
         R.anim.scale_enter, R.anim.slide_still,
         R.anim.slide_still, R.anim.scale_exit)
     var mBaseView: View? = null
+
+    protected val loadingDialog: LoadingDialog by lazy { LoadingDialog(activity) }
 
     @RequiresApi(VERSION_CODES.JELLY_BEAN)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -177,5 +180,28 @@ abstract class BaseFragment : Fragment() {
             .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         return imm.hideSoftInputFromWindow(activity.findViewById<View>(android.R.id.content)
             .windowToken, 0)
+    }
+
+    /**
+     * show loading loadingDialog
+     */
+    protected fun showLoadingDialog() {
+        if (!isDetached) {
+            dismissLoadingDialog()
+            loadingDialog.show()
+        }
+    }
+
+    /**
+     * dismiss loading loadingDialog
+     */
+    protected fun dismissLoadingDialog() {
+        try {
+            if (loadingDialog.isShowing) {
+                loadingDialog.dismiss()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

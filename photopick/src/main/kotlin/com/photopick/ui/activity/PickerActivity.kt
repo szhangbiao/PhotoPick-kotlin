@@ -39,7 +39,7 @@ class PickerActivity: FragmentActivity() {
             }
         }
 
-        if (PhotoPick.config().getImageLoader() == null) {
+        if (PhotoPick.config().getImageLoader() == null || PhotoPick.config().getConfigProvider() == null) {
             throw IllegalArgumentException("The image loader should be set in application")
         }
     }

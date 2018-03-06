@@ -10,4 +10,6 @@
     <string name="photo_pick_preview">预览</string>
     <string name="photo_pick_empty">你可以使用相机拍摄照片</string>
     <string name="photo_pick_please_select">请选择</string>
+    <string name="photo_pick_completed">已完成</string>
+    <string name="photo_pick_empty_title">没有任何照片\n</string>
 </resources>

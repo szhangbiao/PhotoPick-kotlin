@@ -16,17 +16,18 @@ import com.photopick.base.RViewHolder
 import com.photopick.bean.PhotoBean
 import com.photopick.config.PickOption
 import com.photopick.utils.AnimationLoader
+import com.photopick.utils.ScreenUtil
 import com.zhangbiao.photopick.R
 import java.util.ArrayList
 
 /**
  * Created by szhangbiao on 2018/3/1.
  */
-class PhotoAdapter(private val mActivity: Activity,private val config:PickOption) : BaseRAdapter<PhotoBean>(mActivity) {
+class PhotoAdapter(private val mActivity: Activity, config: PickOption) : BaseRAdapter<PhotoBean>(
+    mActivity) {
     private val TYPE_CAMERA = 1
     private val TYPE_PICTURE = 2
 
-    private var enableMultiSelected:Boolean
     private var enableCamera = false
     private var onPicktChangedListener: OnPickChangedListener? = null
     private val maxSelectNum: Int
@@ -36,10 +37,10 @@ class PhotoAdapter(private val mActivity: Activity,private val config:PickOption
 
     private val animation: Animation by lazy { AnimationLoader.loadAnimation(mContext, R.anim.phoenix_window_in) }
     private val zoomAnim: Boolean
-    var isExceedMax: Boolean = false
+    private var isExceedMax: Boolean = false
 
+    private val imageWidth = ScreenUtil.getScreenWidth(mContext) / 3
     init {
-        this.enableMultiSelected = config.enableMultiSelect
         this.enableCamera = config.enableCamera
         this.maxSelectNum = config.maxPickNumber
         this.overrideWidth = config.thumbnailWidth
@@ -82,6 +83,10 @@ class PhotoAdapter(private val mActivity: Activity,private val config:PickOption
     override fun onBindViewHolder(holder: RViewHolder, position: Int) {
         when(getItemViewType(position)){
             TYPE_CAMERA ->{ holder.itemView.setOnClickListener({
+                if (isExceedMax) {
+                    Toast.makeText(mContext, "最多可以选择${maxSelectNum}张", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
                 if(onPicktChangedListener!=null){
                     onPicktChangedListener!!.onTakePhoto()
                 }
@@ -93,7 +98,8 @@ class PhotoAdapter(private val mActivity: Activity,private val config:PickOption
     }
     override fun bindData(holder: RViewHolder, position: Int, item: PhotoBean) {
         selectImage(holder, isSelected(item),false)
-        PhotoPick.config().getImageLoader()?.displayImage(mActivity, item.photoPath,holder.findViewById(R.id.iv_folder_image), 50, 50)
+        PhotoPick.config().getImageLoader()?.displayImage(mActivity, item.photoPath,
+            holder.findViewById(R.id.iv_folder_image), imageWidth, imageWidth)
         holder.itemView.setOnClickListener {
             changeCheckboxState(holder, item)
         }
@@ -134,7 +140,6 @@ class PhotoAdapter(private val mActivity: Activity,private val config:PickOption
             notifyItemChanged(viewHolder.adapterPosition)
             selectImage(viewHolder, !isChecked, false)
         }
-
         if (onPicktChangedListener != null) {
             onPicktChangedListener!!.onChange(pickMediaList)
         }

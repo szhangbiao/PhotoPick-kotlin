@@ -9,13 +9,22 @@ import com.photopick.`interface`.IImageLoader
 class PhotoPickConfig {
 
     private var imageLoader: IImageLoader? = null
+    private var provider: String? = null
 
     fun getImageLoader(): IImageLoader? {
         return imageLoader
     }
 
+    fun getConfigProvider(): String? {
+        return provider
+    }
     fun imageLoader(imageLoader: IImageLoader): PhotoPickConfig {
         this.imageLoader = imageLoader
+        return this
+    }
+
+    fun configProvider(provider: String): PhotoPickConfig {
+        this.provider = provider
         return this
     }
 }

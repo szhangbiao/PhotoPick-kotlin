@@ -5,6 +5,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
 import android.support.v4.app.Fragment
+import com.photopick.base.BaseFragment
 import com.photopick.bean.PhotoBean
 import com.photopick.utils.ReflectUtils
 
@@ -20,6 +21,8 @@ class PickOption() :Parcelable{
     var enableCamera = false
     //图片选择界面每行图片个数
     var spanCount = 4
+    //显示多少kb以下的图片/视频，默认为0，表示不限制
+    var mediaFilterSize: Int = 0
     //选择列表图片宽度
     var thumbnailWidth = 160
     //选择列表图片高度
@@ -28,19 +31,22 @@ class PickOption() :Parcelable{
     var enableAnimation = true
     //拍照、视频的保存地址
     var savePath = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DCIM).absolutePath
+
     //已选择的数据、图片/视频/音频预览的数据
-    var pickedMediaList: List<PhotoBean> = mutableListOf()
+    var pickedMediaList: MutableList<PhotoBean> = mutableListOf()
 
     constructor(parcel: Parcel) : this() {
         enableMultiSelect = parcel.readByte() != 0.toByte()
         maxPickNumber = parcel.readInt()
         enableCamera = parcel.readByte() != 0.toByte()
         spanCount = parcel.readInt()
+        mediaFilterSize = parcel.readInt()
         thumbnailWidth = parcel.readInt()
         thumbnailHeight = parcel.readInt()
         enableAnimation = parcel.readByte() != 0.toByte()
         savePath = parcel.readString()
     }
+
 
     fun enableMultiPhoto(enableMulti:Boolean):PickOption{
         enableMultiSelect=enableMulti
@@ -77,8 +83,13 @@ class PickOption() :Parcelable{
         return this
     }
 
-    fun pickedMediaList(photoList: List<PhotoBean>): PickOption {
+    fun pickedMediaList(photoList: MutableList<PhotoBean>): PickOption {
         pickedMediaList = photoList
+        return this
+    }
+
+    fun mediaFilterSize(mediaSize: Int): PickOption {
+        mediaFilterSize = mediaSize
         return this
     }
 
@@ -87,7 +98,7 @@ class PickOption() :Parcelable{
         return this
     }
 
-    fun start(fragment: Fragment, type: Int, requestCode: Int) {
+    fun start(fragment: BaseFragment, type: Int, requestCode: Int) {
         val starter = ReflectUtils.loadStarter(ReflectUtils.Picker)
         starter?.start(fragment, this, type, requestCode)
     }
@@ -102,6 +113,7 @@ class PickOption() :Parcelable{
         parcel.writeInt(maxPickNumber)
         parcel.writeByte(if (enableCamera) 1 else 0)
         parcel.writeInt(spanCount)
+        parcel.writeInt(mediaFilterSize)
         parcel.writeInt(thumbnailWidth)
         parcel.writeInt(thumbnailHeight)
         parcel.writeByte(if (enableAnimation) 1 else 0)

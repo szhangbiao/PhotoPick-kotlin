@@ -12,16 +12,12 @@ import com.photopick.`interface`.OnItemClickListener
 abstract class BaseRAdapter<T>(val mContext: Context,
     var mList: MutableList<T> = mutableListOf()) : Adapter<RViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(mContext)
-    var onItemClickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RViewHolder {
         return RViewHolder(mInflater.inflate(getItemLayoutId(viewType), parent, false))
     }
 
     override fun onBindViewHolder(holder: RViewHolder, position: Int) {
-        holder.itemView.setOnClickListener({
-            onItemClickListener?.onItemClick(holder.itemView, holder.layoutPosition)
-        })
         bindData(holder, position, mList[position])
     }
 
