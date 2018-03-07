@@ -121,7 +121,7 @@ class MediaLoader(private val activity: FragmentActivity, mediaFilterSize: Int) 
 
 
     interface IMediaLoadListener {
-        fun loadComplete(folders: MutableList<FolderBean>)
+        fun loadComplete(folders: ArrayList<FolderBean>)
     }
 
     companion object {

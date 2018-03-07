@@ -16,7 +16,7 @@ import java.io.File
  */
 class CameraHelper(private val mActivity: Activity, pickOption: PickOption,
     cameraListener: ICameraListener?) {
-    private val REQ_CAMERA = 100001
+    private val REQ_CAMERA = 1001
 
     private val imageFolder: String
     private var pickOption: PickOption = pickOption

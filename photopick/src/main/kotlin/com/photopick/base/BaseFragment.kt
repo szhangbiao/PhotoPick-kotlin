@@ -34,7 +34,7 @@ abstract class BaseFragment : Fragment() {
     private val SCALE_TRANSITION_CONFIG: TransitionConfig = TransitionConfig(
         R.anim.scale_enter, R.anim.slide_still,
         R.anim.slide_still, R.anim.scale_exit)
-    var mBaseView: View? = null
+    private var mBaseView: View? = null
 
     protected val loadingDialog: LoadingDialog by lazy { LoadingDialog(activity) }
 
@@ -49,19 +49,17 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        (mBaseView?.parent as ViewGroup).removeView(mBaseView)
+        if (mBaseView != null) {
+            (mBaseView?.parent as ViewGroup?)?.removeView(mBaseView)
+        }
         getFragmentActivity().clearDisappearInfo(mBaseView)
         return mBaseView
     }
 
-    /**
-     * onDetach
-     */
     override fun onDetach() {
         super.onDetach()
         mBaseView=null
     }
-
     @SuppressLint("NewApi")
     fun requestApplyInsets(window: Window) {
         if (Build.VERSION.SDK_INT in 19..20) {

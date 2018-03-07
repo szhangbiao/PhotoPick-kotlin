@@ -42,6 +42,6 @@ class FolderAdapter(private val mActivity: Activity) : BaseRAdapter<FolderBean>(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(folderName: String, images: MutableList<PhotoBean>)
+        fun onItemClick(folderName: String, images: ArrayList<PhotoBean>)
     }
 }

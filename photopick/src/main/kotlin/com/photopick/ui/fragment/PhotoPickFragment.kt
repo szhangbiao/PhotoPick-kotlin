@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -37,7 +38,7 @@ import java.util.ArrayList
 class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnPickChangedListener, FolderAdapter.OnItemClickListener {
 
     private lateinit var pickRlTitle: RelativeLayout
-    private lateinit var pickTvBack:TextView
+    private lateinit var pickTvBack: ImageView
     private lateinit var pickTvTitle:TextView
     private lateinit var pickTvCancel:TextView
     private lateinit var rvContainer:RecyclerView
@@ -64,8 +65,8 @@ class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnP
 
     private lateinit var photoAdapter:PhotoAdapter
 
-    private var allMediaList: MutableList<PhotoBean> = ArrayList()
-    private var allFolderList: MutableList<FolderBean> = ArrayList()
+    private var allMediaList: ArrayList<PhotoBean> = ArrayList()
+    private var allFolderList: ArrayList<FolderBean> = ArrayList()
     /**
      * 相机打开帮助类
      */
@@ -76,7 +77,9 @@ class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnP
     }
 
     override fun initWidgets(view: View) {
-        option = if (arguments.getParcelable<PickOption>(PhotoPick.PICK_OPTION) == null) PickOption() else arguments.getParcelable(PhotoPick.PICK_OPTION)
+        option = if (arguments.getSerializable(
+                PhotoPick.PICK_OPTION) == null) PickOption() else arguments.getSerializable(
+            PhotoPick.PICK_OPTION) as PickOption
         initView(view)
         setupView()
         setupData()
@@ -108,8 +111,8 @@ class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnP
         tvPreview.setOnClickListener(this)
         pickTvBack.setOnClickListener(this)
         pickTvCancel.setOnClickListener(this)
-        tvComplete.setOnClickListener(this)
         pickTvTitle.setOnClickListener(this)
+        llComplete.setOnClickListener(this)
     }
 
     private fun setupData() {
@@ -124,7 +127,7 @@ class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnP
         rvContainer.adapter = photoAdapter
         photoAdapter.setOnPickChangedListener(this)
         photoAdapter.setPickMediaList(option.pickedMediaList)
-        changeImageNumber(ArrayList())
+        changeImageNumber(option.pickedMediaList)
 
         mediaLoader = MediaLoader(getFragmentActivity(), option.mediaFilterSize)
         readLocalMedia()
@@ -132,7 +135,7 @@ class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnP
 
     private fun readLocalMedia() {
         mediaLoader.loadAllMedia(object : MediaLoader.IMediaLoadListener {
-            override fun loadComplete(folders: MutableList<FolderBean>) {
+            override fun loadComplete(folders: ArrayList<FolderBean>) {
                 if (folders.size > 0) {
                     allFolderList = folders
                     val folder = folders[0]
@@ -175,6 +178,7 @@ class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnP
         val enable = selectImages.isNotEmpty()
         if (enable) {
             llComplete.isEnabled = true
+            llComplete.isClickable = true
             llComplete.alpha = 1F
             tvPreview.isEnabled = true
 //            tvPreview.setTextColor(if (themeColor == THEME_DEFAULT) ContextCompat.getColor(mContext, R.color.green) else themeColor)
@@ -187,6 +191,7 @@ class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnP
             isAnimation = false
         } else {
             llComplete.isEnabled = false
+            llComplete.isClickable = false
             llComplete.alpha = 0.7F
             tvPreview.isEnabled = false
             tvPreview.setTextColor(
@@ -228,7 +233,7 @@ class PhotoPickFragment : BaseFragment(), View.OnClickListener, PhotoAdapter.OnP
     }
 
 
-    override fun onItemClick(folderName: String, images: MutableList<PhotoBean>) {
+    override fun onItemClick(folderName: String, images: ArrayList<PhotoBean>) {
         pickTvTitle.text = folderName
         photoAdapter.updateDataList(images)
         folderWindow.dismiss()

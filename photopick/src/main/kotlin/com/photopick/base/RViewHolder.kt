@@ -27,7 +27,7 @@ class RViewHolder(itemView: View) : ViewHolder(itemView) {
             view = itemView.findViewById(viewId)
             mViews.put(viewId, view)
         }
-        return view as T
+        return view!! as T
     }
 
     /**

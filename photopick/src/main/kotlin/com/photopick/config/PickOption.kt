@@ -1,18 +1,15 @@
 package com.photopick.config
 import android.app.Activity
 import android.os.Environment
-import android.os.Parcel
-import android.os.Parcelable
-import android.os.Parcelable.Creator
 import android.support.v4.app.Fragment
-import com.photopick.base.BaseFragment
 import com.photopick.bean.PhotoBean
 import com.photopick.utils.ReflectUtils
+import java.io.Serializable
 
 /**
  * Created by szhangbiao on 2018/3/5.
  */
-class PickOption() :Parcelable{
+class PickOption : Serializable {
     // 是否开启多选  默认 ： false
     var enableMultiSelect: Boolean = true
     //最大选择张数，默认为0，表示不限制
@@ -33,20 +30,7 @@ class PickOption() :Parcelable{
     var savePath = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DCIM).absolutePath
 
     //已选择的数据、图片/视频/音频预览的数据
-    var pickedMediaList: MutableList<PhotoBean> = mutableListOf()
-
-    constructor(parcel: Parcel) : this() {
-        enableMultiSelect = parcel.readByte() != 0.toByte()
-        maxPickNumber = parcel.readInt()
-        enableCamera = parcel.readByte() != 0.toByte()
-        spanCount = parcel.readInt()
-        mediaFilterSize = parcel.readInt()
-        thumbnailWidth = parcel.readInt()
-        thumbnailHeight = parcel.readInt()
-        enableAnimation = parcel.readByte() != 0.toByte()
-        savePath = parcel.readString()
-    }
-
+    var pickedMediaList: ArrayList<PhotoBean> = ArrayList()
 
     fun enableMultiPhoto(enableMulti:Boolean):PickOption{
         enableMultiSelect=enableMulti
@@ -83,7 +67,7 @@ class PickOption() :Parcelable{
         return this
     }
 
-    fun pickedMediaList(photoList: MutableList<PhotoBean>): PickOption {
+    fun pickedMediaList(photoList: ArrayList<PhotoBean>): PickOption {
         pickedMediaList = photoList
         return this
     }
@@ -98,7 +82,7 @@ class PickOption() :Parcelable{
         return this
     }
 
-    fun start(fragment: BaseFragment, type: Int, requestCode: Int) {
+    fun start(fragment: Fragment, type: Int, requestCode: Int) {
         val starter = ReflectUtils.loadStarter(ReflectUtils.Picker)
         starter?.start(fragment, this, type, requestCode)
     }
@@ -108,29 +92,4 @@ class PickOption() :Parcelable{
         starter?.start(activity, this, type, requestCode)
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeByte(if (enableMultiSelect) 1 else 0)
-        parcel.writeInt(maxPickNumber)
-        parcel.writeByte(if (enableCamera) 1 else 0)
-        parcel.writeInt(spanCount)
-        parcel.writeInt(mediaFilterSize)
-        parcel.writeInt(thumbnailWidth)
-        parcel.writeInt(thumbnailHeight)
-        parcel.writeByte(if (enableAnimation) 1 else 0)
-        parcel.writeString(savePath)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Creator<PickOption> {
-        override fun createFromParcel(parcel: Parcel): PickOption {
-            return PickOption(parcel)
-        }
-
-        override fun newArray(size: Int): Array<PickOption?> {
-            return arrayOfNulls(size)
-        }
-    }
 }

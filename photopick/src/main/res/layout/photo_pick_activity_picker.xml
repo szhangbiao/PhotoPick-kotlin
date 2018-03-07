@@ -38,6 +38,7 @@
             android:enabled="false"
             android:gravity="start|center"
             android:padding="12dp"
+            android:visibility="invisible"
             android:text="@string/photo_pick_preview"
             android:textColor="@color/photo_pick_green"
             android:textSize="@dimen/photo_pick_sp_14"
@@ -64,6 +65,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/photo_pick_please_select"
+                android:clickable="false"
                 android:textColor="@color/photo_pick_white"
                 android:textSize="@dimen/photo_pick_sp_14"
                 />
@@ -73,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:clickable="false"
                 android:textColor="@color/photo_pick_white"
                 android:textSize="@dimen/photo_pick_sp_14"
                 android:visibility="gone"

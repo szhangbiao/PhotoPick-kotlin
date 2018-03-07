@@ -99,7 +99,7 @@ class PhotoAdapter(private val mActivity: Activity, config: PickOption) : BaseRA
     override fun bindData(holder: RViewHolder, position: Int, item: PhotoBean) {
         selectImage(holder, isSelected(item),false)
         PhotoPick.config().getImageLoader()?.displayImage(mActivity, item.photoPath,
-            holder.findViewById(R.id.iv_folder_image), imageWidth, imageWidth)
+            holder.findViewById(R.id.iv_picture), imageWidth, imageWidth)
         holder.itemView.setOnClickListener {
             changeCheckboxState(holder, item)
         }
@@ -112,7 +112,7 @@ class PhotoAdapter(private val mActivity: Activity, config: PickOption) : BaseRA
      */
     @SuppressLint("StringFormatMatches")
     private fun changeCheckboxState(viewHolder: RViewHolder, image: PhotoBean) {
-        val isChecked = viewHolder.getTextView(R.id.tv_check).isSelected
+        val isChecked = viewHolder.getImageView(R.id.tv_check).isSelected
         if (isChecked) {
             for (mediaEntity in pickMediaList) {
                 if (mediaEntity.photoPath == image.photoPath) {
@@ -146,10 +146,10 @@ class PhotoAdapter(private val mActivity: Activity, config: PickOption) : BaseRA
     }
 
     private fun selectImage(viewHolder: RViewHolder, isChecked: Boolean, isAnim: Boolean) {
-        viewHolder.getTextView(R.id.tv_check).isSelected = isChecked
+        viewHolder.getImageView(R.id.tv_check).isSelected = isChecked
         if (isChecked) {
             if (isAnim) {
-                viewHolder.getTextView(R.id.tv_check).startAnimation(animation)
+                viewHolder.getImageView(R.id.tv_check).startAnimation(animation)
             }
             viewHolder.getImageView(R.id.iv_picture).setColorFilter(ContextCompat.getColor(mContext, R.color.color_black_4), PorterDuff.Mode.SRC_ATOP)
         } else {

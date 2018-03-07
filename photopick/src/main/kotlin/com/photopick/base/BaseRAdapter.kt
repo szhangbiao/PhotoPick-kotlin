@@ -10,7 +10,7 @@ import com.photopick.`interface`.OnItemClickListener
  * Created by szhangbiao on 2018/3/1.
  */
 abstract class BaseRAdapter<T>(val mContext: Context,
-    var mList: MutableList<T> = mutableListOf()) : Adapter<RViewHolder>() {
+    var mList: ArrayList<T> = ArrayList()) : Adapter<RViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(mContext)
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RViewHolder {
@@ -44,7 +44,7 @@ abstract class BaseRAdapter<T>(val mContext: Context,
     /**
      * 刷新数据
      */
-    fun updateDataList(newData: List<T>) {
+    fun updateDataList(newData: ArrayList<T>) {
         mList.clear()
         mList.addAll(newData)
         notifyDataSetChanged()
@@ -53,7 +53,7 @@ abstract class BaseRAdapter<T>(val mContext: Context,
     /**
      * 添加数据
      */
-    fun addDataList(newData: List<T>) {
+    fun addDataList(newData: ArrayList<T>) {
         mList.addAll(newData)
         notifyDataSetChanged()
     }

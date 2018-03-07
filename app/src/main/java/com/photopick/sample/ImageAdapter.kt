@@ -72,6 +72,9 @@ class ImageAdapter(private val mActivity: Activity) : BaseRAdapter<PhotoBean>(mA
         }
     }
 
+    fun setOnAddMediaListener(mOnAddMediaListener: OnAddMediaListener) {
+        this.mOnAddMediaListener = mOnAddMediaListener
+    }
     interface OnAddMediaListener {
         fun onaddMedia()
     }

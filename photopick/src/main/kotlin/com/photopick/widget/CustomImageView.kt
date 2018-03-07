@@ -52,4 +52,8 @@ class CustomImageView : AppCompatImageView {
         fun onDetach()
         fun onAttach()
     }
+
+    fun setOnImageLoaderListener(onImageLoadListener: OnImageLoadListener) {
+        this.onImageLoadListener = onImageLoadListener
+    }
 }

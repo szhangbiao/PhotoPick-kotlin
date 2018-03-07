@@ -1,6 +1,7 @@
 package com.photopick.widget
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
@@ -26,7 +28,7 @@ import com.zhangbiao.photopick.R
 /**
  * Created by szhangbiao on 2018/3/1.
  */
-class FolderPopupWindow(private val mActivity: Activity) : PopupWindow(), View.OnClickListener {
+class FolderPopupWindow(private val mActivity: Activity) : PopupWindow() {
 
     private val window: View = LayoutInflater.from(mActivity).inflate(
         R.layout.photo_pick_window_folder, null)
@@ -67,10 +69,12 @@ class FolderPopupWindow(private val mActivity: Activity) : PopupWindow(), View.O
                 ContextCompat.getColor(mActivity, R.color.transparent)))
         recyclerView!!.layoutManager = LinearLayoutManager(mActivity)
         recyclerView!!.adapter = adapter
-        llRoot!!.setOnClickListener(this)
+        llRoot?.setOnClickListener({
+            dismiss()
+        })
     }
 
-    fun bindFolder(folders: List<FolderBean>) {
+    fun bindFolder(folders: ArrayList<FolderBean>) {
 //        adapter!!.setMimeType(mimeType)
         adapter!!.updateDataList(folders)
     }
@@ -80,24 +84,31 @@ class FolderPopupWindow(private val mActivity: Activity) : PopupWindow(), View.O
     }
 
     override fun showAsDropDown(anchor: View) {
-        try {
-            if (Build.VERSION.SDK_INT >= 24) {
-                val location = IntArray(2)
-                anchor.getLocationOnScreen(location)
-                val height = anchor.height
-                val x = location[0]
-                val y = location[1]
-                super.showAtLocation(anchor, Gravity.NO_GRAVITY, x, y + height)
-            } else {
-                super.showAsDropDown(anchor)
-            }
-            isDismiss = false
-            recyclerView!!.startAnimation(animationIn)
-            StringUtils.modifyTextViewDrawable(tvTitle!!, drawableUp, 2)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        this.showAsDropDown(anchor, 0, 0)
+    }
 
+    override fun showAsDropDown(anchor: View, xOffset: Int, yOffset: Int) {
+        if (Build.VERSION.SDK_INT < 24) {
+            super.showAsDropDown(anchor, xOffset, yOffset)
+        } else {
+            // 适配 android 7.0
+            val location = IntArray(2)
+            anchor.getLocationOnScreen(location)
+            // 7.1 版本处理
+            if (Build.VERSION.SDK_INT >= 25) {
+                //【note!】Gets the screen height without the virtual key
+                val wm = mActivity
+                    .getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                val screenHeight = wm.defaultDisplay.height
+                /*
+                 * PopupWindow height for match_parent,
+                 * will occupy the entire screen, it needs to do special treatment in Android 7.1
+                */
+                height = screenHeight - location[1] - anchor.height - yOffset
+            }
+            showAtLocation(anchor, Gravity.NO_GRAVITY, xOffset,
+                location[1] + anchor.getHeight() + yOffset)
+        }
     }
 
     fun setOnItemClickListener(onItemClickListener: FolderAdapter.OnItemClickListener) {
@@ -116,7 +127,6 @@ class FolderPopupWindow(private val mActivity: Activity) : PopupWindow(), View.O
             override fun onAnimationStart(animation: Animation) {
 
             }
-
             override fun onAnimationEnd(animation: Animation) {
                 isDismiss = false
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
@@ -139,10 +149,4 @@ class FolderPopupWindow(private val mActivity: Activity) : PopupWindow(), View.O
         Handler().post { super@FolderPopupWindow.dismiss() }
     }
 
-    override fun onClick(v: View) {
-        val id = v.id
-        if (id == R.id.id_ll_root) {
-            dismiss()
-        }
-    }
 }
