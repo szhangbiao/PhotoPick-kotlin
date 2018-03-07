@@ -133,4 +133,11 @@ abstract class FragmentActivity: AppCompatActivity() {
         val baseFragment: BaseFragment? = getCurrentFragment()
         baseFragment?.onActivityResult(requestCode, resultCode, data)
     }
+
+    override fun onBackPressed() {
+        val fragment = getCurrentFragment()
+        if (fragment != null) {
+            popBackStack()
+        }
+    }
 }
