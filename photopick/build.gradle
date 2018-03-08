@@ -38,3 +38,15 @@ dependencies {
     api 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     api"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
+
+//添加下面这句
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    userOrg = 'shizhangbiao'    //注册时候的用户名
+    groupId = 'com.zhangbiao.photopick'//   //compile引用时的第1部分
+    artifactId = 'photopick'////发布到JCenter上的项目名字，compile引用时的第2部分项目名
+    publishVersion = '1.0.0'//版本号 ，compile引用时的最后部分，下次更新是只需要更改版本号即可
+    desc = 'A customizable Picture-Gallery on Android'//描述，不重要
+    website = 'https://github.com/szhangbiao/PhotoPick-kotlin'  //项目的GitHub网站
+}

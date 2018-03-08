@@ -15,15 +15,16 @@ import io.reactivex.disposables.Disposable
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
-    private var IMAGE_FOLDER = Environment.getExternalStorageDirectory().absolutePath + File.separator + "Sample"
+    private var IMAGE_FOLDER = Environment.getExternalStorageDirectory().absolutePath + File.separator + "Sample"//文件夹的名字最好跟file_paths中设置的path保持一致
     private val REQUEST_CODE = 0x000111
 
     private lateinit var mAdapter: ImageAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        PhotoPick.config().imageLoader(PicassoImageLoader()).configProvider(
-            BuildConfig.APPLICATION_ID + ".provider")
+        PhotoPick.config()//一定要在功能使用前调用，只需要调用一次，最好在Application或启动页中调用
+            .imageLoader(PicassoImageLoader())//使用Picasso加载图片
+            .configProvider(BuildConfig.APPLICATION_ID + ".provider")
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 4,
@@ -41,12 +42,13 @@ class MainActivity : AppCompatActivity() {
                         override fun onNext(aBoolean: Boolean) {
                             if (aBoolean) {
                                 PhotoPick.with()
-                                    .savePath(IMAGE_FOLDER)
-                                    .spanCount(4)
-                                    .maxPickNumber(9)
-                                    .enableAnimation(true)
-                                    .enableCamera(true)
-                                    .pickedMediaList(mAdapter.mList)
+                                    .savePath(IMAGE_FOLDER)// 图片存放路径
+                                    .spanCount(4)// 每行显示个数
+                                    .maxPickNumber(9)// 最大选择数量
+                                    .enableAnimation(true)// 选择界面图片点击效果
+                                    .enableCamera(true)// 是否开启拍照
+                                    .pickedMediaList(mAdapter.mList)// 已选图片数据
+                                    //如果是在Activity里使用就传Activity，如果是在Fragment里使用就传Fragment
                                     .start(this@MainActivity, 0, REQUEST_CODE)
                             } else {
                                 showToast("读取内存卡权限被拒绝，请到设置里开启权限")
