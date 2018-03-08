@@ -106,7 +106,7 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
     }
 }
 ```
-##注意
+## 注意
 在Android 6.0以上需要进行权限申请，PhotoPick没有提供具体的权限申请及校验，请在调用时注意，也可参考[Sample](https://github.com/szhangbiao/PhotoPick-kotlin/blob/master/app/src/main/java/com/photopick/sample/MainActivity.kt)中的代码
 ## 感谢（Thanks）
 UI及动画效果参考了[phoenix](https://github.com/guoxiaoxing/phoenix) ，部分代码参考了[GalleryPick](https://github.com/YancyYe/GalleryPick)
