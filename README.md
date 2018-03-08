@@ -7,6 +7,7 @@ PhotoPick是kotlin版 Android 自定义相册，实现了拍照、图片多选�
 * 采用activity+fragments的UI架构，方面后续功能的拓展
 * 沉浸式状态栏的实现，兼容到API 19
 ## 效果预览
+![PhotoPick](https://github.com/szhangbiao/PhotoPick-kotlin/blob/master/gif/PhotoPick.gif) 
 ## 快速添加
 1.在项目的 `build.gradle` 中添加：
 ```java
